@@ -1,0 +1,87 @@
+#{extends 'main.html' /}
+#{set title:'Liste des tâches' /}
+
+<h1>Liste des tâches</h1>
+
+#{if taches}
+<ul>
+	#{list items:taches, as:'tache' }
+	<li id="${tache.id}">
+		#{if tache.taskDone}<input type="checkbox" checked>#{/if}
+		#{else}<input type="checkbox">#{/else}
+		<span class="title">${tache.title}</span>
+		<span class="reminderDate">${tache.reminderDate}</span>
+		<!--<a href="#" class="edit" id="edit_${tache.id}"><img src="@{'/public/images/edit.png'}" alt="modifier la tache" width="10" height="10"></a>-->
+		<a href="@{Application.editTacheForm(tache.id)}" class="edit" id="edit_${tache.id}"><img src="@{'/public/images/edit.png'}" alt="modifier la tache" width="10" height="10"></a>
+		<a href="#" class="del"  id="del_${tache.id}"><img src="@{'/public/images/delete.png'}" alt="supprimer la tache" width="10" height="10"></a>
+	</li>
+	#{/list}
+</ul>
+#{/if}
+#{else}
+<p>Aucune tâche</p>
+#{/else}
+
+<p><a href="@{Application.ajouterTacheForm()}">Ajouter une nouvelle tâche</a></p>
+
+
+<script type="text/javascript" charset="utf-8">
+
+	// Exemple type d'une requête AJAX avec la bibliothèque JQuery.
+	// http://api.jquery.com/jQuery.ajax/
+	/*
+    $.ajax({
+        url: '',     // NomControleur.nomMethode() (Spécifique à Play!)
+        type: '',   // Type de la requete HTTP (GET, POST, PUT, ...)
+        data: {},   // Données à envoyer au serveur
+        success: function(result) { // Fonction appelé en cas de success
+        }
+    });
+    */
+
+
+	// Validation d'une tâche (appel ajax - requête POST)
+	$("input:checkbox").live("click", function(event){
+		$.ajax({
+			url: '@{Application.validerTache()}',
+			type: 'POST',
+			data: {id: $(this).parent().attr('id')}
+		});
+	});
+
+
+	// Suppression d'une tâche (appel ajax - requête DELETE)
+	$('li a.del').click(function(event){
+		// Annule l'action implicite
+		// Ex. l'action implicite associée à un événement de type submit est l'envoi au serveur du formulaire concerné.
+		event.preventDefault();
+
+		// Affiche une popup de confirmation de suppression
+		var confirmSuppr = confirm('Supprimer la tâche ?');
+		// Si click sur ok, requête ajax vers serveur pour supprimer la tâche
+		if(confirmSuppr) {
+			$.ajax({
+				url: '@{Application.supprimerTache()}',
+				type: 'DELETE',
+				data: {id: $(this).attr('id').split('_')[1]},
+				success: function(result) {
+					$('#' + result.id).remove();
+				}
+			});
+		}
+	});
+
+
+	// Modification d'un tâche (appel ajax - requête PUT)
+	$('li a.edit').click("click", function(event) {
+		$.ajax({
+			url: '@{Application.editTacheForm()}',
+			type: 'GET',
+			data: {id: $(this).attr('id').split('_')[1]},
+			success: function(result) {
+				$('#' + result.id + ' span').text(result.title);
+			}
+		});
+	});
+
+</script>

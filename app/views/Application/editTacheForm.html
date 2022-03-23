@@ -1,0 +1,19 @@
+#{extends 'main.html' /}
+#{set title:'Modifier une tâche' /}
+
+<h1>Modifier la tâche existante</h1>
+
+<form action="/taches/modification" method="post">
+    <div>
+        <input type="hidden" id="id" name="id" value="${tache.id}">
+    </div>
+    <div>
+        <label for="title">Nom de la tâche:</label>
+        <input type="text" id="title" name="title" value="${tache.title}">
+    </div>
+    <div>
+        <label for="date">Date de rappel pour la tâche:</label>
+        <input type="datetime-local" id="date" name="date" value="${data}">
+    </div>
+    <input type="submit" value="Modifier la tâche existante">
+</form>

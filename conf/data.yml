@@ -1,0 +1,11 @@
+#Structure d'un fichier yml :
+#NomClasse(nomInstance):
+#   attributClasse1: valeur
+#   attributClasse2: valeur
+#   attributClasse3: valeur
+#   ...
+
+Tache(t1):
+    title: tester Play! Frameworks
+    taskDone: false
+    reminderDate: 2022-03-23 18:00

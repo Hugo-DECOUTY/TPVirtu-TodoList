@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+
+# Gestion des tâches
+GET     /                                       Application.listTache
+GET     /taches/ajouter                         Application.ajouterTacheForm
+POST    /taches/ajouter                         Application.ajouterTache
+POST    /taches/valider                         Application.validerTache
+DELETE  /taches/supprimer                       Application.supprimerTache
+GET     /taches/modification/{id}               Application.editTacheForm
+POST    /taches/modification                    Application.editTache
+
+# API
+POST    /api/tache                              ServiceWeb.ajouterTache
+GET     /api/taches.json                        ServiceWeb.listTache
+GET     /api/tache/{id}.json                    ServiceWeb.getTache
+PUT     /api/tache/{id}                         ServiceWeb.editTitleTache
+PUT     /api/tache/{id}/change-statut           ServiceWeb.changeStatutTache
+DELETE  /api/tache/{id}                         ServiceWeb.supprimeTache
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

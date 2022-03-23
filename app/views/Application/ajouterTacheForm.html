@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Ajouter une tâche' /}
+
+<h1>Ajouter une nouvelle tâche</h1>
+
+<form action="/taches/ajouter" method="post">
+    <div>
+        <label for="title">Nom de la tâche:</label>
+        <input type="text" id="title" name="title">
+    </div>
+    <div>
+        <label for="reminderDateString">Date de rappel pour la tâche:</label>
+        <input type="datetime-local" id="reminderDateString" name="reminderDateString">
+    </div>
+    <input type="submit" value="Ajouter la nouvelle tâche">
+</form>
