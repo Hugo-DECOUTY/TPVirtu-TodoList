@@ -34,7 +34,7 @@ public class Tache extends Model {
 public class Tache extends Model {
 
     @Basic
-    @Column(length=30, nullable=false, unique = true)
+    @Column(length=70, nullable=false, unique = true)
     public String title;
 
     public String getTitle() {
