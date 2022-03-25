@@ -2,37 +2,7 @@ package models;
 
 import play.db.jpa.Model;
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-/*
-@Entity
-public class Tache extends Model {
-	
-    @id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    public Long id;
-
-    @Basic
-    @Column(length=50, nullable=false)  
-    public String nameTaskOwner
-
-    @Basic
-    @Column(length=200, nullable=false)
-    public String taskName;
-
-    @Basic
-    @Column(length=50, nullable=false) 
-    public String nameTaskReceiver
-
-    @Temporal(TemporalType.DATE)
-    private java.util.Date TaskDate;
-
-}
-*/
 
 @Entity
 public class Tache extends Model {
