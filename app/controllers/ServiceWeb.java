@@ -12,6 +12,7 @@ import java.util.List;
 
 public class ServiceWeb extends Controller {
 
+    //Messages d'erreurs retournés (try & catches)
     private static final String ID_NOT_FOUND_OUTPUT = "L'identifiant fourni n'est pas correct.\n";
     private static final String INVALID_DATE_FORMAT_OUTPUT = "La date doit être renseignée selon le format yyyy-MM-dd HH:mm\n";
     private static final String DATE_AND_TITLE_NOT_SPECIFIED_OUTPUT = "Un titre et une date doit être spécifiée\n";
@@ -22,16 +23,21 @@ public class ServiceWeb extends Controller {
     // Test (curl) : curl --data "title=task-from-curl&date=2022-03-24 14:18" http://app-5ab97e8e-e6b5-4f08-9645-fff5f353d754.cleverapps.io/api/tache
     public static void ajouterTache(String title, String date) throws ParseException {
         try {
+            //On vérifie que les deux données soient bien renseignées
             if(title != null && date != null){
+                //On ajoute les données et on renvoie le nouvel identifiant.
                 Date reminderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date);
                 Tache new_tache = new Tache(title,false, reminderDate);
                 new_tache.save();
                 renderJSON("New data uploaded with id : " + new_tache.id + "\n");
+                //Gestion d'exception : Date et titre doivent être spécifiées.
             } else {
                 renderJSON(DATE_AND_TITLE_NOT_SPECIFIED_OUTPUT);
             }
+            //Gestion d'exception : Le format de date est invalide.
         } catch(ParseException err) {
             renderJSON(INVALID_DATE_FORMAT_OUTPUT);
+            //Gestion d'exception : Le titre existe déjà.
         } catch(PersistenceException err){
             renderJSON(TITLE_ALREADY_EXISTS_OUTPUT + title + "\n");
         }
@@ -53,6 +59,7 @@ public class ServiceWeb extends Controller {
         try {
             Tache tache = Tache.findById(id);
             renderJSON(tache);
+            //Gestion d'exception : L'identifiant est incorrect.
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
         }
@@ -63,19 +70,24 @@ public class ServiceWeb extends Controller {
     // Test (curl) : curl -X PUT --data "title=aaabbb&date=2022-03-24 14:18" http://app-5ab97e8e-e6b5-4f08-9645-fff5f353d754.cleverapps.io/api/tache/1
     public static void editTitleTache(Long id, String title, String date) throws ParseException {
         try {
+            //On vérifie que les deux données soient bien renseignées
             if(title != null && date != null){
                 Tache tache = Tache.findById(id);
                 tache.setTitle(title);
                 tache.setReminderDate(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date));
                 tache.save();
                 renderJSON(tache);
+                //Gestion d'exception : Date et titre doivent être spécifiées.
             } else {
                 renderJSON(DATE_AND_TITLE_NOT_SPECIFIED_OUTPUT);
             }
+            //Gestion d'exception : L'identifiant est incorrect.
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
+            //Gestion d'exception : Le titre n'existe pas.
         } catch(PersistenceException pe){
             renderJSON(TITLE_ALREADY_EXISTS_OUTPUT + title + "\n");
+            //Gestion d'exception : La date n'a pas le bon format.
         } catch(ParseException pe){
             renderJSON(INVALID_DATE_FORMAT_OUTPUT);
         }
@@ -92,6 +104,7 @@ public class ServiceWeb extends Controller {
             tache.setTaskDone(!tache.isTaskDone());
             tache.save();
             renderJSON(tache);
+            //Gestion d'exception : L'identifiant n'est pas valide.
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
         }
@@ -105,9 +118,10 @@ public class ServiceWeb extends Controller {
         Tache tache = Tache.findById(id);
         tache._delete();
         renderJSON(tache);
+            //Gestion d'exception : L'identifiant n'est pas valide
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
         }
     }
-    
+
 }

@@ -17,7 +17,7 @@ import java.util.*;
 public class Pushover extends Job {
 
     public void doJob(){
-        System.out.println("Vérification des notificaitons à envoyer...");
+        System.out.println("Vérification des notifications à envoyer...");
 
         //Partie date.
         String dateFormat = "yyyy-MM-dd HH:mm";
@@ -27,10 +27,13 @@ public class Pushover extends Job {
         List<Tache> taches = Tache.findAll();
         DateFormat df = new SimpleDateFormat(dateFormat);
 
+        //Pour chaque tâche, on compare la date actuelle à la date de rappel pour la tâche.
         for(Tache t:taches){
             Date reminderDate = t.getReminderDate();
             String rd = df.format(reminderDate);
+            //Si la date de rappel est la même que la date actuelle
             if(rd.equals(cd)){
+                //On envoie une requête à l'API pour notifier.
                 Map<String,String> parameters_res = new HashMap<>();
                 parameters_res.put("token", "a3q77jy23fyi9poimh3ptmb4obuy5o");
                 parameters_res.put("user", "u5yhw6gvm9mjergefiyh4zk1cagf2z");

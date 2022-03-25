@@ -16,17 +16,7 @@ W
 'app/views/Application/ajouterTache.html,f\f\ffcf6ccb926ee4d9a685d3f967e6b3e715704e3e
 X
 (app/views/Application/editTacheForm.html,7\a\7ae8eb8969f0e953ecd838eca31e8df2e7961cfa
-B
-app/Bootstrap.java,2\d\2de7c8b6c5079e80a52f4e86ac301a4ea2003acd
-;
-conf/routes,f\4\f42c25577a4c66653928d76c7519c0d46aa2b4e7
 T
 $app/views/Application/listTache.html,7\5\756add612433b5ac63662297163d999efcd4242a
 [
 +app/views/Application/ajouterTacheForm.html,9\2\92e9b03d8f777bb7ec89d108be6003ea916480fa
-A
-app/Pushover.java,c\c\cc0263452ed4139fa49baf2a9ddf69316c4ac21c
-E
-app/models/Tache.java,5\8\5892180dc4b1506b3505d47b64344352c37257d3
-P
- app/controllers/Application.java,9\e\9e511a325227555f904e1574b00585dddece0532

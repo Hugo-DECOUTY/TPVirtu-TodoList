@@ -1,7 +1,0 @@
-
-S	java:S106."9Replace this use of System.out or System.err by a logger.(¬ì€¤üÿÿÿÿ
-U	java:S106B"9Replace this use of System.out or System.err by a logger.(ÙÛ†8®×Ï‚ü/
-Z	java:S106W"9Replace this use of System.out or System.err by a logger.(¬ì€¤üÿÿÿÿ8–Ò‚ü/
-9
-java:S1128"Remove this duplicated import.(ªŸÙãüÿÿÿÿ
-f	java:S117*"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğÿÉÍ
