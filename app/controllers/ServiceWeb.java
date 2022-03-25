@@ -52,7 +52,7 @@ public class ServiceWeb extends Controller {
     public static void getTache(Long id) {
         try {
             Tache tache = Tache.findById(id);
-            renderJSON(tache + "\n");
+            renderJSON(tache);
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
         }
@@ -68,7 +68,7 @@ public class ServiceWeb extends Controller {
                 tache.setTitle(title);
                 tache.setReminderDate(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date));
                 tache.save();
-                renderJSON(tache + "\n");
+                renderJSON(tache);
             } else {
                 renderJSON(DATE_AND_TITLE_NOT_SPECIFIED_OUTPUT);
             }
@@ -91,7 +91,7 @@ public class ServiceWeb extends Controller {
             Tache tache = Tache.findById(id);
             tache.setTaskDone(!tache.isTaskDone());
             tache.save();
-            renderJSON(tache + "\n");
+            renderJSON(tache);
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
         }
@@ -104,7 +104,7 @@ public class ServiceWeb extends Controller {
         try {
         Tache tache = Tache.findById(id);
         tache._delete();
-        renderJSON(tache + "\n");
+        renderJSON(tache);
         } catch(NullPointerException | IllegalArgumentException err){
             renderJSON(ID_NOT_FOUND_OUTPUT);
         }
