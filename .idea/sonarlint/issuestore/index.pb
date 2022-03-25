@@ -16,5 +16,3 @@ W
 'app/views/Application/ajouterTache.html,f\f\ffcf6ccb926ee4d9a685d3f967e6b3e715704e3e
 X
 (app/views/Application/editTacheForm.html,7\a\7ae8eb8969f0e953ecd838eca31e8df2e7961cfa
-[
-+app/views/Application/ajouterTacheForm.html,9\2\92e9b03d8f777bb7ec89d108be6003ea916480fa

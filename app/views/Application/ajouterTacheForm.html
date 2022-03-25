@@ -1,6 +1,9 @@
 #{extends 'main.html' /}
 #{set title:'Ajouter une tâche' /}
 
+#{if INSERTION_FAILED_OUTPUT}
+    <div>Erreur</div>
+#{/if}
 <h1>Ajouter une nouvelle tâche</h1>
 
 <form action="/taches/ajouter" method="post">

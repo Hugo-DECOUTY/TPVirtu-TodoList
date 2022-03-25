@@ -20,6 +20,9 @@ import java.util.List;
 
 public class Application extends Controller {
 
+    private static final String ACTION_FAILED_OUTPUT = "Erreur. L'action n'a pas pu être effectuée. Redirection.";
+    private static final String INVALID_ID_OUTPUT = "Erreur. L'id n'est pas correct. Redirection.";
+
     // Affiche toutes les tâches (voir variable taches) dans le template views/listTache.html
     public static void listTache() {
         List<Tache> taches = Tache.findAll();
@@ -33,11 +36,16 @@ public class Application extends Controller {
 
     // Ajoute une nouvelle tâche en base de données et affiche le template views/ajouterTache.html
     public static void ajouterTache(String title, String reminderDateString) throws ParseException {
-        reminderDateString = reminderDateString.replace("T"," ");
-        Date reminderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(reminderDateString);
-        Tache new_tache = new Tache(title,false, reminderDate);
-        new_tache.save();
-        render();
+        try {
+            reminderDateString = reminderDateString.replace("T"," ");
+            Date reminderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(reminderDateString);
+            Tache new_tache = new Tache(title,false, reminderDate);
+            new_tache.save();
+            render();
+        } catch (PersistenceException err){
+            System.out.println(ACTION_FAILED_OUTPUT);
+            redirect("Application.ajouterTacheForm");
+        }
     }
 
     // Change le statut d'une tâche en base de données
@@ -55,7 +63,7 @@ public class Application extends Controller {
             String data = tache.getReminderDate().toString().replace(" ","T");
             render(tache, data);
         } catch(IllegalArgumentException | NullPointerException err){
-            System.out.println("Erreur. L'id n'est pas correct. Redirection.");
+            System.out.println(INVALID_ID_OUTPUT);
             redirect("/");
         }
     }
@@ -75,8 +83,8 @@ public class Application extends Controller {
             tache.setReminderDate(reminderDate);
             tache.save();
             redirect("/");
-        } catch(IllegalArgumentException | ParseException | PersistenceException err){
-            System.out.println("Erreur. L'insertion n'a pas pu être effectuée. Redirection.");
+        } catch(IllegalArgumentException | NullPointerException | PersistenceException err){
+            System.out.println(ACTION_FAILED_OUTPUT);
             redirect("/");
         }
 
