@@ -28,7 +28,9 @@ public class Pushover extends Job {
         for(Tache t:taches){
             Date reminderDate = t.getReminderDate();
             String rd = df.format(reminderDate);
+            System.out.println("je suis dans la boucle for");
             if(rd.equals(cd)){
+                System.out.println("je suis dans le if");
                 Map<String,String> parameters_res = new HashMap<>();
                 parameters_res.put("token", "a3q77jy23fyi9poimh3ptmb4obuy5o");
                 parameters_res.put("user", "u5yhw6gvm9mjergefiyh4zk1cagf2z");
