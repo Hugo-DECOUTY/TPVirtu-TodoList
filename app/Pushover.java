@@ -7,6 +7,7 @@ import play.test.Fixtures;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class Pushover extends Job {
         //Partie date.
         String dateFormat = "yyyy-MM-dd HH:mm";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
-        LocalDateTime currentdate = LocalDateTime.now();
+        ZonedDateTime currentdate = ZonedDateTime.now();
         String cd = dtf.format(currentdate);
         List<Tache> taches = Tache.findAll();
         DateFormat df = new SimpleDateFormat(dateFormat);
