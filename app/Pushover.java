@@ -17,7 +17,7 @@ import java.util.*;
 public class Pushover extends Job {
 
     public void doJob(){
-        System.out.println("Check for reminders");
+        System.out.println("Vérification des notificaitons à envoyer...");
 
         //Partie date.
         String dateFormat = "yyyy-MM-dd HH:mm";
@@ -30,10 +30,7 @@ public class Pushover extends Job {
         for(Tache t:taches){
             Date reminderDate = t.getReminderDate();
             String rd = df.format(reminderDate);
-            System.out.println(rd);
-            System.out.println(cd);
             if(rd.equals(cd)){
-                System.out.println("je suis dans le if");
                 Map<String,String> parameters_res = new HashMap<>();
                 parameters_res.put("token", "a3q77jy23fyi9poimh3ptmb4obuy5o");
                 parameters_res.put("user", "u5yhw6gvm9mjergefiyh4zk1cagf2z");
