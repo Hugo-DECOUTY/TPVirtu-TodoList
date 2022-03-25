@@ -43,7 +43,7 @@ public class ServiceWeb extends Controller {
     // Test (curl) : curl http://app-5ab97e8e-e6b5-4f08-9645-fff5f353d754.cleverapps.io/api/taches.json
     public static void listTache() {
         List<Tache> taches = Tache.findAll();
-        renderJSON(taches + "\n");
+        renderJSON(taches);
     }
 
     // Retourne au format JSON une tâche (READ => GET)
