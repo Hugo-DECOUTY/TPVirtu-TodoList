@@ -9,11 +9,11 @@
     </div>
     <div>
         <label for="title">Nom de la tâche:</label>
-        <input type="text" id="title" name="title" value="${tache.title}">
+        <input type="text" id="title" name="title" value="${tache.title}" required>
     </div>
     <div>
         <label for="date">Date de rappel pour la tâche:</label>
-        <input type="datetime-local" id="date" name="date" value="${data}">
+        <input type="datetime-local" id="date" name="date" value="${data}" required>
     </div>
     <input type="submit" value="Modifier la tâche existante">
 </form>

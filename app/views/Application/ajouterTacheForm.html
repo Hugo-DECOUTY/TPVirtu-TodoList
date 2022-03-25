@@ -6,11 +6,11 @@
 <form action="/taches/ajouter" method="post">
     <div>
         <label for="title">Nom de la tâche:</label>
-        <input type="text" id="title" name="title">
+        <input type="text" id="title" name="title" required>
     </div>
     <div>
         <label for="reminderDateString">Date de rappel pour la tâche:</label>
-        <input type="datetime-local" id="reminderDateString" name="reminderDateString">
+        <input type="datetime-local" id="reminderDateString" name="reminderDateString" required>
     </div>
     <input type="submit" value="Ajouter la nouvelle tâche">
 </form>

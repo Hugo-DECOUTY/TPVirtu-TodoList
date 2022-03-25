@@ -8,7 +8,9 @@ import play.mvc.Controller;
 import play.db.jpa.JPA;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.validation.constraints.Null;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -33,12 +35,9 @@ public class Application extends Controller {
     public static void ajouterTache(String title, String reminderDateString) throws ParseException {
         reminderDateString = reminderDateString.replace("T"," ");
         Date reminderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(reminderDateString);
-        if(title != null && reminderDate != null){
-            Tache new_tache = new Tache(title,false, reminderDate);
-            new_tache.save();
-            render();
-        }
-
+        Tache new_tache = new Tache(title,false, reminderDate);
+        new_tache.save();
+        render();
     }
 
     // Change le statut d'une tâche en base de données
@@ -51,9 +50,14 @@ public class Application extends Controller {
 
     // Affiche le template views/editTacheForm.html (formulaire d'ajout d'une tâche)
     public static void editTacheForm(Long id) {
-        Tache tache = Tache.findById(id);
-        String data = tache.getReminderDate().toString().replace(" ","T");
-        render(tache, data);
+        try {
+            Tache tache = Tache.findById(id);
+            String data = tache.getReminderDate().toString().replace(" ","T");
+            render(tache, data);
+        } catch(IllegalArgumentException | NullPointerException err){
+            System.out.println("Erreur. L'id n'est pas correct. Redirection.");
+            redirect("/");
+        }
     }
 
     // Supprime une tâche en base de données
@@ -63,13 +67,19 @@ public class Application extends Controller {
 
     // Modifie une tâche en base de données
     public static void editTache(Long id, String title, String date) throws ParseException {
-        Tache tache = Tache.findById(id);
-        tache.setTitle(title);
-        String reminderDateString = date.replace("T"," ");
-        Date reminderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(reminderDateString);
-        tache.setReminderDate(reminderDate);
-        tache.save();
-        redirect("/");
+        try {
+            Tache tache = Tache.findById(id);
+            tache.setTitle(title);
+            String reminderDateString = date.replace("T"," ");
+            Date reminderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(reminderDateString);
+            tache.setReminderDate(reminderDate);
+            tache.save();
+            redirect("/");
+        } catch(IllegalArgumentException | ParseException | PersistenceException err){
+            System.out.println("Erreur. L'insertion n'a pas pu être effectuée. Redirection.");
+            redirect("/");
+        }
+
     }
 
 }
